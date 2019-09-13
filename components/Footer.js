@@ -4,6 +4,19 @@ import { useTransition, animated, config } from 'react-spring';
 import Foot from './styles/FooterStyles';
 import Logo from './styles/Logo';
 
+const slides = [
+  {
+    item1: 'Light',
+    item2: 'Truth',
+    item3: 'Peace'
+  },
+  {
+    item1: 'Lux',
+    item2: 'Veritas',
+    item3: 'Pax'
+  }
+];
+
 const Motto = () => {
   const [isToggled, setToggle] = useState(false);
   const transitions = useTransition(isToggled, null, {
@@ -12,29 +25,23 @@ const Motto = () => {
     leave: { opacity: 0 },
     config: config.molasses
   });
-  setInterval(() => {
-    setToggle(!isToggled);
-  }, 6000);
-
-  return transitions.map(({ item, key, props }) =>
-    item ? (
-      <animated.div key={key} style={props}>
-        <div className="school-moto">
-          <span className="first">Light</span>
-          <span className="second">Truth</span>
-          <span className="third">Peace</span>
-        </div>
-      </animated.div>
-    ) : (
-      <animated.div key={key} style={props}>
-        <div className="school-moto">
-          <span className="first">Lux</span>
-          <span className="second">Veritas</span>
-          <span className="third">Pax</span>
-        </div>
-      </animated.div>
-    )
+  useEffect(
+    () =>
+      void setInterval(() => {
+        setToggle(isToggled => (isToggled + 1) % 2);
+      }, 6000),
+    []
   );
+
+  return transitions.map(({ item, key, props }) => (
+    <animated.div key={key} style={props}>
+      <div className="school-moto">
+        <span className="first">{item.item1}</span>
+        <span className="second">{item.item2}</span>
+        <span className="third">{item.item3}</span>
+      </div>
+    </animated.div>
+  ));
 };
 
 const Footer = () => {
