@@ -12,13 +12,10 @@ const Motto = () => {
     leave: { opacity: 0 },
     config: config.molasses
   });
-  useEffect(
-    () =>
-      void setTimeout(() => {
-        setToggle(!isToggled);
-      }, 6000),
-    [isToggled]
-  );
+  setInterval(() => {
+    setToggle(!isToggled);
+  }, 6000);
+
   return transitions.map(({ item, key, props }) =>
     item ? (
       <animated.div key={key} style={props}>
