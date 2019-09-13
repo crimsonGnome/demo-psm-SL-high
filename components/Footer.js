@@ -18,8 +18,8 @@ const slides = [
 ];
 
 const Motto = () => {
-  const [isToggled, setToggle] = useState(false);
-  const transitions = useTransition(isToggled, null, {
+  const [isToggled, setToggle] = useState(0);
+  const transitions = useTransition(slides[isToggled], isToggled, {
     from: { postion: 'absolute', opacity: 0 },
     enter: { opacity: 1 },
     leave: { opacity: 0 },
